@@ -1,0 +1,29 @@
+@page
+@model Gallery.Pages.UploadFileModel
+@{
+    ViewData["Title"] = "Buffered Single File Upload (Physical)";
+}
+
+<h1>Upload one buffered file to physical storage with one file upload control</h1>
+
+<p>The following form's page handler saves the file to disk.</p>
+
+<form enctype="multipart/form-data" method="post">
+    <label asp-for="FormData.FormFile"></label>
+        
+    <input asp-for="FormData.FormFile" type="file" />
+    <span asp-validation-for="FormData.FormFile"></span>
+
+    <label asp-for="FormData.Description"></label>
+    <input asp-for="FormData.Description" type="text" />
+
+    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
+</form>
+
+<p class="result">
+    @Model.Result
+</p>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

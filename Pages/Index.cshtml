@@ -1,0 +1,23 @@
+﻿@page
+@using Gallery.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    @{
+        foreach (UploadedImage image in @Model.Images)
+        {
+            string imageId = image.Id;
+
+            <figure>
+                <img src="api/UploadedFiles/@imageId" alt="@image.Description" />
+                <figcaption>@image.Description</figcaption>
+            </figure>
+        }
+    }
+</div>
