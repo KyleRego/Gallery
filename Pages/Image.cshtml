@@ -1,0 +1,45 @@
+@page "{imageId}"
+@namespace Gallery.Pages
+@model ImageModel
+
+@using Gallery.Models
+
+<div class="container">
+    @if (Model.Image == null)
+    {
+        <p>Image was not found</p>
+    }
+    else
+    {
+        UploadedImage image = Model.Image;
+        
+        <h1>Image: @image.OriginalName</h1>
+
+        <figure>
+            <img src="@image.ImgSrc()" alt="@image.Description" />
+            <figcaption>@image.Description</figcaption>
+        </figure>
+
+        <h2>Edit image description:</h2>
+
+        <form enctype="multipart/form-data" method="post">
+
+            <label asp-for="FormData!.Description"></label>
+            <textarea asp-for="FormData!.Description" type="text"></textarea>
+
+            <input asp-page-handler="Upload" class="btn btn-primary" type="submit" value="Update" />
+        </form>
+
+        <p class="result">
+            @Model.Result
+        </p>
+
+        <h3>Delete image:</h3>
+
+        <form method="post">
+            <button class="btn btn-danger" type="submit"
+                onclick="return confirm('Are you sure you want to delete?');"
+                 asp-page-handler="delete">Delete</button>
+        </form>
+    }
+</div>

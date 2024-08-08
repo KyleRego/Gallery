@@ -1,0 +1,28 @@
+@page
+@namespace Gallery.Pages
+@using Gallery.Models
+@model ImagesModel
+
+<div class="container">
+    <h1>Uploaded images</h1>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UploadedImage image in Model.Images)
+        {
+            <tr>
+                <th scope="row"><a href="Image/@image.Id">@image.OriginalName</a></th>
+                <td>@image.Description</td>
+            </tr>
+        }
+    </tbody>
+    </table>
+</div>

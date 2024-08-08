@@ -23,4 +23,16 @@ public class UploadedImage
 
     [Required]
     public required string RandomGeneratedName { get; set; }
+
+    public string ImgSrc()
+    {
+        return $"/api/UploadedImages/{Id}";
+    }
+
+    public string PathToFile(string storedFilesPath)
+    {
+        string relativePath = Path.Combine(storedFilesPath, RandomGeneratedName);
+
+        return Path.GetFullPath(relativePath);
+    }
 }

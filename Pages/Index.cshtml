@@ -5,19 +5,38 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center py-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <h1 class="display-4">Annabelle</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod venenatis accumsan. Donec eleifend nec lorem quis facilisis. </p>
+                <p>Contact info here?</p>
+            </div>
+            <div class="col-md-8">
+                @{
+                    string MarginForFigure(int imageIndex, int numImages)
+                    {
+                        if (imageIndex == 0) return "my-5 my-md-0 mb-md-5";
+                        if (imageIndex == numImages - 1) return "my-5 my-md-0 mt-md-5";
+                        return "my-5";
+                    }
 
-    @{
-        foreach (UploadedImage image in @Model.Images)
-        {
-            string imageId = image.Id;
+                    int imageCount = @Model.Images.Count;
+                }
 
-            <figure>
-                <img src="api/UploadedFiles/@imageId" alt="@image.Description" />
-                <figcaption>@image.Description</figcaption>
-            </figure>
-        }
-    }
+                @for (int i = 0; i < imageCount; i += 1)
+                {
+                    UploadedImage image = @Model.Images[i];
+                    string imageId = image.Id;
+                    string cssMarginClass = MarginForFigure(i, imageCount);
+
+                    <figure class="@cssMarginClass">
+                        <img src="@image.ImgSrc()" alt="@image.Description" />
+                        <figcaption>@image.Description</figcaption>
+                    </figure>
+                }
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,30 +1,30 @@
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading.Tasks;
-using Gallery.Data;
-using Gallery.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
-// using SampleApp.Utilities;
+
+using Gallery.Data;
+using Gallery.Models;
 
 namespace Gallery.Pages;
 
-public class UploadFileFormData
+public class UploadImageFormData
 {
     public IFormFile? FormFile { get; set; }
 
     public string? Description { get; set; }
 }
 
-public class UploadFileModel : PageModel
+public class UploadImageModel : PageModel
 {
     private readonly long _fileSizeLimit;
     private readonly string[] _permittedExtensions = [".png", ".jpg"];
     private readonly string _uploadedFilesPath;
     private readonly GalleryDbContext _dbContext;
-    public UploadFileModel(IConfiguration config, GalleryDbContext dbContext)
+    public UploadImageModel(IConfiguration config, GalleryDbContext dbContext)
     {
         _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
 
@@ -35,7 +35,7 @@ public class UploadFileModel : PageModel
     }
 
     [BindProperty]
-    public UploadFileFormData FormData { get; set; }
+    public UploadImageFormData FormData { get; set; } = new();
 
     public string Result { get; private set; } = "";
 
