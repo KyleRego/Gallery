@@ -1,0 +1,25 @@
+name: my-github-action
+
+on: [push]
+
+jobs:
+  build-test-and-deploy-webapi:
+    environment: development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+            dotnet-version: '8.0.x'
+      - name: Publish self-contained executable
+        run: dotnet publish -r linux-arm64 --self-contained true
+      - name: SCP dotnet executable to VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "./bin/Release/net8.0/linux-arm64/publish"
+          target: ${{ secrets.DEPLOY_DIRECTORY }}

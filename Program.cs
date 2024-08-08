@@ -13,6 +13,12 @@ if (builder.Environment.IsDevelopment())
 
     builder.Services.AddDbContext<GalleryDbContext>(options => options.UseSqlite(dbConString));
 }
+else if (builder.Environment.IsProduction())
+{
+    string dbConString = builder.Configuration["DbConnectionString"];
+
+    builder.Services.AddDbContext<GalleryDbContext>(options => options.UseSqlite(dbConString));
+}
 
 var app = builder.Build();
 
