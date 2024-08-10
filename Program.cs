@@ -1,9 +1,17 @@
-using Gallery.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
+using Gallery.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizePage("/Image");
+    options.Conventions.AuthorizePage("/Images");
+    options.Conventions.AuthorizePage("/UploadImage");
+});
+
 builder.Services.AddControllers();
 
 if (builder.Environment.IsDevelopment())
@@ -15,10 +23,14 @@ if (builder.Environment.IsDevelopment())
 }
 else if (builder.Environment.IsProduction())
 {
-    string dbConString = builder.Configuration["DbConnectionString"];
+    string dbConString = builder.Configuration["DbConnectionString"]
+            ?? throw new InvalidOperationException("db connection string missing");
 
     builder.Services.AddDbContext<GalleryDbContext>(options => options.UseSqlite(dbConString));
 }
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<GalleryDbContext>();
 
 var app = builder.Build();
 

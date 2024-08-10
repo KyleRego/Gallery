@@ -5,15 +5,17 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center py-5">
+<div class="text-center">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row pb-5">
             <div class="col-md-4">
-                <h1 class="display-4">Annabelle</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod venenatis accumsan. Donec eleifend nec lorem quis facilisis. </p>
-                <p>Contact info here?</p>
+                <div class="sticky-top pt-5">
+                    <h1 class="display-4">Annabelle</h1>
+                    
+                    <p class="container">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis euismod mi ut pharetra. Donec arcu sapien, malesuada eu rhoncus sit amet, venenatis a orci. In et euismod quam, in porta arcu. Donec non velit urna. Ut venenatis lectus mi, sit amet varius nisi dapibus sit amet. Praesent accumsan luctus orci nec scelerisque. Aliquam erat volutpat. Suspendisse vulputate ipsum et felis tempus, id vestibulum urna dignissim.</p>
+                </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 pt-md-5">
                 @{
                     string MarginForFigure(int imageIndex, int numImages)
                     {
